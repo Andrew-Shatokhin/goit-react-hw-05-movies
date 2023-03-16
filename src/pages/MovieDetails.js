@@ -1,49 +1,61 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../fetchMovies';
+import { Link, Outlet } from 'react-router-dom';
 
 
 export const MovieDetails = () => {
-  const [movieDetails, setmovieDetails] = useState({});
+  const [movie, setMovie] = useState([]);
 
-  const { id } = useParams();
+  const { filmId } = useParams();
 
 
 
     useEffect(() => {
-      async function createMovieDetails() {
+      (async () => {
         try {
-          const data = await fetchMovieDetails(id);
+          const data = await fetchMovieDetails(filmId);
 
-          setmovieDetails(data);
+          setMovie(data);
         } catch (error) {
-          console.log(error);
+          console.log(Error);
         }
-      }
+      })();
 
-      createMovieDetails();
-    }, [id]);
+    }, [filmId]);
 
   return (
     <div>
-      {movieDetails && (
+
         <div>
           <img
             src={
-              movieDetails.poster_path
-                ? `https://image.tmdb.org/t/p/w300${movieDetails.poster_path}`
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
                 : `http://www.suryalaya.org/images/no_image.jpg`
             }
             alt=""
           />
-          <h2>{movieDetails.original_title}</h2>
-          <p>User score:{} %</p>
-          <p>Overview</p>
-          <p>{movieDetails.overview}</p>
-          <p>Genres</p>
-          <p>{movieDetails.genres}</p>
+          <h2>Title:{movie.original_title}</h2>
+          <p>User score:{movie.popularity} %</p>
+          <h3>Overview</h3>
+          <p>{movie.overview}</p>
+          <h3>Genres</h3>
+          <p>{movie.genres}</p>
         </div>
-      )}
+
+      <div>
+        <ul>
+          <p>Additional information</p>
+          <li>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li>
+            <Link to="reviews">Reviews</Link>
+          </li>
+        </ul>
+        <Outlet />
+      </div>
     </div>
   );
 };
