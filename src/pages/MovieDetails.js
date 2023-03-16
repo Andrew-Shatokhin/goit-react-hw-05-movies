@@ -23,16 +23,18 @@ export const MovieDetails = () => {
       })();
     }, [movieId]);
 
+
   return (
     <div>
       <img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt="" />
-      <h2>{movie.title}</h2>
+      <h2>
+        {movie.title} <span>({movie.release_date?.slice(0,4)})</span>
+      </h2>
       <p>User score: {Math.round(movie.vote_average * 10)}%</p>
       <h3>Overview</h3>
       <p>{movie.overview}</p>
       <h4>Gengers</h4>
-      {/* <p>{movie.genres.map(genre => genre.name).join(' ')}</p> */}
-
+      <p>{movie.genres?.map(genre => genre.name).join(', ')}</p>
 
       {/* <img
         src={
