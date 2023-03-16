@@ -16,11 +16,12 @@ const fetchTrendingMovies = async () => {
 };
 
 
-const fetchMovieDetails = async filmId => {
+const fetchMovieDetails = async movieId => {
   const response = await axios.get(
-    `movie/${filmId}?api_key=${api_key}&language=en-US`
+    `movie/${movieId}?api_key=${api_key}&language=en-US`
   );
-  return response;
+  console.log(response);
+  return response.data;
 };
 
 
