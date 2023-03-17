@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from '../fetchMovies';
 import { Link, Outlet } from 'react-router-dom';
 
@@ -10,6 +10,9 @@ export const MovieDetails = () => {
   const { movieId } = useParams();
   console.log(movieId);
 
+   const location = useLocation();
+  //  const backLinkHref = location.state?.from ?? '/';
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
     useEffect(() => {
       (async () => {
@@ -26,6 +29,10 @@ export const MovieDetails = () => {
 
   return (
     <div>
+      <Link to={backLinkLocationRef.current}>
+        <button type="button">Go back</button>
+      </Link>
+
       <img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt="" />
       <h2>
         {movie.title} <span>({movie.release_date?.slice(0, 4)})</span>
@@ -35,7 +42,6 @@ export const MovieDetails = () => {
       <p>{movie.overview}</p>
       <h4>Gengers</h4>
       <p>{movie.genres?.map(genre => genre.name).join(', ')}</p>
-
       {/* <img
         src={
           movie.poster_path
@@ -50,7 +56,6 @@ export const MovieDetails = () => {
       <p>{movie.overview}</p>
       <h3>Genres</h3>
       <p>{movie.genres}</p> */}
-
       <ul>
         <p>Additional information</p>
         <li>

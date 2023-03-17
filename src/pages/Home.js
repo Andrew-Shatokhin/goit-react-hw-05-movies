@@ -2,8 +2,12 @@ import { useState, useEffect} from 'react';
 import MovieList from 'components/MovieList';
 import { fetchTrendingMovies } from '../fetchMovies';
 
+
 const Home = () => {
   const [movies, setMovies] = useState([]);
+
+
+
 
   const createTrandingMovies = async () => {
   try {

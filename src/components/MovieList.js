@@ -1,16 +1,18 @@
-const { Link } = require('react-router-dom');
+const { Link, useLocation } = require('react-router-dom');
 
 const baseImgUrl = 'https://image.tmdb.org/t/p/w500';
 const placeHolder =
   'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
-const MovieList = ({ movies } ) => {
+const MovieList = ({ movies }) => {
+const location = useLocation();
+
   return (
     <div>
       <ul>
         {movies.map(({ id, title, poster_path, name }) => (
           <li key={id}>
-            <Link to={`/movies/${id}`}>
+            <Link to={`/movies/${id}`} state={{ from: location }}>
               {title}
               <img
                 src={poster_path ? baseImgUrl + poster_path : placeHolder}
