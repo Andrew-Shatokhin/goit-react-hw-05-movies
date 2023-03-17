@@ -1,58 +1,62 @@
-// import fetchMovies from '../fetchMovies'
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { fetchSearchMovie } from 'fetchMovies';
+import MovieList from 'components/MovieList';
+
 
 const Movies = () => {
-
   const [value, setValue] = useState([]);
-
+  const [query, setQuery] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
-  const nameMovie = searchParams.get('name') ?? "";
-
-  useEffect(() => {
-
-  }, [])
-
 
   const handleChange = e => {
-      setSearchParams({ name: e.target.value.toLowerCase()})}
-    // setValue(event.currentTarget.value.toLowerCase());
+   setQuery(e.currentTarget.value);
+ };
 
+ const handleSubmit = e => {
+   e.preventDefault();
+   setSearchParams(query !== '' ? { query } : {});
+ };
 
+  useEffect(() => {
+    const query = searchParams.get('query') ?? '';
 
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    if (value.trim() === '') {
-
-      return alert('The search string cannot be empty!');
-
+    if (!query) {
+      return;
     }
+      (async () => {
+        try {
+          const data = await fetchSearchMovie(query);
 
-    setValue(value);
-    setValue('');
+          setValue(data);
+        } catch {
+          console.log(Error);
+        }
+      })();
 
-  };
+  }, [searchParams]);
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input
+          name="query"
           type="text"
           autoComplete="off"
           autoFocus
           placeholder=""
-          value={nameMovie}
+          value={query}
           onChange={handleChange}
         />
         <button type="submit">Search</button>
       </form>
-
-      <ul>
-        <li>{}</li>
-      </ul>
+      <MovieList movies={value} />
     </div>
   );
 }
 
 export default Movies;
+
+
+
+

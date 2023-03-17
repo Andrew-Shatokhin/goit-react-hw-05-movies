@@ -28,7 +28,7 @@ export const MovieDetails = () => {
     <div>
       <img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt="" />
       <h2>
-        {movie.title} <span>({movie.release_date?.slice(0,4)})</span>
+        {movie.title} <span>({movie.release_date?.slice(0, 4)})</span>
       </h2>
       <p>User score: {Math.round(movie.vote_average * 10)}%</p>
       <h3>Overview</h3>

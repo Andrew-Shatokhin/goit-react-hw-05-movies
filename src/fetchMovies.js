@@ -9,7 +9,7 @@ const api_key = '39cac865cd97b5021efa5cb45c64bc17';
 
 const fetchTrendingMovies = async () => {
   const response = await axios.get(`trending/movie/day?api_key=${api_key}`)
-  console.log(response.data.results);
+  // console.log(response.data.results);
 
   return response.data.results;
 
@@ -20,7 +20,7 @@ const fetchMovieDetails = async movieId => {
   const response = await axios.get(
     `movie/${movieId}?api_key=${api_key}&language=en-US`
   );
-  console.log(response);
+  // console.log(response);
   return response.data;
 };
 
@@ -29,20 +29,10 @@ const fetchCast = async movieId => {
   const response = await axios.get(
     `movie/${movieId}/credits?api_key=${api_key}&language=en-US`
   );
-  console.log(response.data.cast);
+  // console.log(response.data.cast);
 
   return response.data.cast;
 };
-
-
-const fetchSearchMovie = async data => {
-  const response = await axios.get(
-    `search/movie?api_key=${api_key}&language=en-US&query=${data}&page=1&include_adult=false`
-  );
-  console.log(response.data.results);
-  return response.data.results;
-};
-
 
 
 const fetchReviews = async movieId => {
@@ -55,5 +45,21 @@ const fetchReviews = async movieId => {
 };
 
 
-export { fetchTrendingMovies, fetchMovieDetails, fetchSearchMovie, fetchCast, fetchReviews};
+const fetchSearchMovie = async movie => {
+  const response = await axios.get(
+    `search/movie?api_key=${api_key}&language=en-US&query=${movie}&page=1&include_adult=false`
+  );
+  // console.log(response.data.results);
+  return response.data.results;
+};
+
+
+
+ export {
+  fetchTrendingMovies,
+  fetchMovieDetails,
+  fetchSearchMovie,
+  fetchCast,
+  fetchReviews,
+};
 
