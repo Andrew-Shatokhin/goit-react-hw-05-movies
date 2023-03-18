@@ -1,34 +1,37 @@
+
 import PropTypes from 'prop-types';
-const { Link, useLocation } = require('react-router-dom');
+import { Item, List, Image, Title, Link } from './MovieList.styled';
+
+const { useLocation } = require('react-router-dom');
 
 const baseImgUrl = 'https://image.tmdb.org/t/p/w500';
-const placeHolder ='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+const placeHolder =
+  'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
 const MovieList = ({ movies }) => {
   const location = useLocation();
 
   return (
     <div>
-      <ul>
+      <List>
         {movies.map(({ id, title, poster_path, name }) => (
-          <li key={id}>
+          <Item key={id}>
             <Link to={`/movies/${id}`} state={{ from: location }}>
-              {title}
-              <img
+              <Image
                 src={poster_path ? baseImgUrl + poster_path : placeHolder}
                 alt={name}
                 width="250"
               />
+              <Title>{title}</Title>
             </Link>
-          </li>
+          </Item>
         ))}
-      </ul>
+      </List>
     </div>
   );
 };
 
 export default MovieList;
-
 
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(
