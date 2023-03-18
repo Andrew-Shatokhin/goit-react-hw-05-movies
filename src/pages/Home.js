@@ -4,21 +4,18 @@ import { fetchTrendingMovies } from '../fetchMovies';
 
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState([]);
 
+    const createTrandingMovies = async () => {
+    try {
+      const response = await fetchTrendingMovies();
 
-
-
-  const createTrandingMovies = async () => {
-  try {
-    const response = await fetchTrendingMovies();
-
-    setMovies(response);
-  } catch (error) {
-    alert('Sorry something wrong. Check the internet and try reload.');
-    console.log(error);
-  }
-};
+      setMovies(response);
+    } catch (error) {
+      alert('Sorry something wrong. Check the internet and try reload.');
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     if (movies.length > 0) {
@@ -34,7 +31,6 @@ const Home = () => {
   return (
     <main>
       <h1>Trending today</h1>
-
       <MovieList movies={movies} />
     </main>
   );

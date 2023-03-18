@@ -1,11 +1,11 @@
+import PropTypes from 'prop-types';
 const { Link, useLocation } = require('react-router-dom');
 
 const baseImgUrl = 'https://image.tmdb.org/t/p/w500';
-const placeHolder =
-  'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+const placeHolder ='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
 
 const MovieList = ({ movies }) => {
-const location = useLocation();
+  const location = useLocation();
 
   return (
     <div>
@@ -27,5 +27,16 @@ const location = useLocation();
   );
 };
 
-
 export default MovieList;
+
+
+MovieList.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string,
+      poster_path: PropTypes.string,
+      name: PropTypes.string,
+    })
+  ).isRequired,
+};
