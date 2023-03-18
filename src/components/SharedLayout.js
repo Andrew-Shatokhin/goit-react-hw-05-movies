@@ -1,10 +1,10 @@
-import { GlobalStyle } from './GlobalStyle';
-import { Layout } from './Layout';
+import GlobalStyle from './GlobalStyle';
+import Layout from './Layout';
 import { StyledLink, Header } from './SharedLayout.styled';
 import { Outlet } from 'react-router-dom';
+import { Suspense } from "react";
 
-
-export const SharedLayout = () => {
+const SharedLayout = () => {
   return (
       <Layout>
         <Header>
@@ -14,8 +14,13 @@ export const SharedLayout = () => {
           </nav>
       </Header>
 
-       <Outlet />
+      <Suspense fallback={<div>Loading page...</div>}>
+          <Outlet />
+      </Suspense>
+
       <GlobalStyle />
     </Layout>
   )
 };
+
+export default SharedLayout;

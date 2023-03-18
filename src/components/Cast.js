@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {fetchCast} from '../fetchMovies'
+import { fetchCast } from '../fetchMovies'
 
 const placeHolder ='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
 const baseImgUrl = 'https://image.tmdb.org/t/p/w500';

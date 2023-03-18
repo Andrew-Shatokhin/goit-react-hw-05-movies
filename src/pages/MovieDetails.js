@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from '../fetchMovies';
 import { Link, Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState({});
 
   const { movieId } = useParams();
@@ -65,8 +66,12 @@ export const MovieDetails = () => {
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
-      <Outlet />
+
+      <Suspense fallback={<div>Loading subpage...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
 
+export default MovieDetails;
